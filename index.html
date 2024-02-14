@@ -45,19 +45,19 @@
             <li>
                 Selezionare tutti i corsi di laurea magistrale (38)
                 <div style="color:blue">
-                    SELECT * FROM `students` WHERE date_of_birth LIKE '1990%';
+                    SELECT * FROM `degrees` WHERE level LIKE 'magistrale';
                 </div>
             </li>
             <li>
                 Da quanti dipartimenti è composta l'università? (12)
                 <div style="color:blue">
-                    SELECT * FROM `students` WHERE date_of_birth LIKE '1990%';
+                    SELECT COUNT(id) FROM departments;
                 </div>
             </li>
             <li>
                 Quanti sono gli insegnanti che non hanno un numero di telefono? (50)
                 <div style="color:blue">
-                    SELECT * FROM `students` WHERE date_of_birth LIKE '1990%';
+                    SELECT * FROM `teachers` WHERE phone IS NULL;
                 </div>
             </li>
         </ol>
