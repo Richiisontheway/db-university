@@ -25,9 +25,8 @@
             </li>
             <li>
                 Selezionare tutti gli studenti che hanno più di 30 anni
-                <div style="color:blue">
-                    
-                    SELECT * FROM `courses` WHERE cfu > 10;
+                <div style="color:blue">   
+                    SELECT * FROM `students` WHERE (YEAR(NOW()) - YEAR(date_of_birth)) > 30;
                 </div>
             </li>
             <li>
