@@ -8,6 +8,9 @@
 <body>
     
     <section>
+        <h1>
+            esercizio 14/02/2024
+        </h1>
         <ol>
             <li>
                 Selezionare tutti gli studenti nati nel 1990 (160):
@@ -57,6 +60,163 @@
                 Quanti sono gli insegnanti che non hanno un numero di telefono? (50)
                 <div style="color:blue">
                     SELECT * FROM `teachers` WHERE phone IS NULL;
+                </div>
+            </li>
+        </ol>
+    </section>
+    <section>
+        <h1>
+            esercizio 15/02/2024 GROUP BY
+        </h1>
+        <ol>
+            <li>
+                Contare quanti iscritti ci sono stati ogni anno
+                <div style="color:#0000ff">
+                    SELECT 
+                    YEAR
+                                (`enrolment_date`) AS iscritti_per_anno, COUNT(*) AS numero_iscritti
+                        FROM 
+                            `students`
+                        GROUP BY YEAR
+                            (`enrolment_date`)
+                </div>
+            </li>
+            <li>
+                Contare gli insegnanti che hanno l'ufficio nello stesso edificio
+                <div style="color:blue">
+                    SELECT 
+                        `office_address`, 
+                            COUNT(*) 
+                                AS totale_insegnanti
+                    FROM 
+                        `teachers` 
+                    GROUP BY 
+                        `office_address`;
+                </div>
+            </li>
+            <li>
+                Calcolare la media dei voti di ogni appello d'esame
+                <div style="color:blue">   
+                    SELECT 
+                        `exam_id`, 
+                            AVG(`vote`) 
+                                AS media_voto
+                    FROM 
+                        `exam_student`
+                    GROUP BY 
+                        `exam_id` 
+                </div>
+            </li>
+            <li>
+                Calcolare la media dei voti di ogni appello d'esame
+                <div style="color:blue">
+                    SELECT 
+                        `exam_id`, 
+                            AVG(`vote`) 
+                                AS media_voto
+                    FROM 
+                        `exam_student`
+                    GROUP BY 
+                        `exam_id` 
+                </div>
+            </li>
+            <li>
+                Contare quanti corsi di laurea ci sono per ogni dipartimento
+                <div style="color:blue">
+                    SELECT 
+                        `department_id`, 
+                            COUNT(*) 
+                                AS 
+                                    `totale_corsi_laurea`
+                    FROM 
+                        `degrees`
+                    GROUP BY 
+                        `department_id`
+                    ORDER BY 
+                        `totale_corsi_laurea` DESC;
+                </div>
+            </li>
+        </ol>
+    </section>
+    <section>
+        <h1>
+            esercizio 14/02/2024 JOIN
+        </h1>
+        <ol>
+            <li>
+                Selezionare tutti gli studenti iscritti al Corso di Laurea in Economia
+                <div style="color:blue">
+                    SELECT * 
+                    FROM `students`
+                    INNER JOIN `degrees`
+                    ON students.degree_id = degrees.id
+                    WHERE degrees.name = 'Corso di Laurea in Economia';
+                </div>
+            </li>
+            <li>
+                Selezionare tutti i Corsi di Laurea Magistrale del Dipartimento di Neuroscienze
+                <div style="color:blue">
+                    SELECT * 
+                    FROM `degrees` 
+                    INNER JOIN `departments`
+                    ON degrees.department_id = departments.id
+                    WHERE degrees.level = 'magistrale'
+                    AND departments.name = 'Dipartimento di Neuroscienze';
+                </div>
+            </li>
+            <li>
+                Selezionare tutti i corsi in cui insegna Fulvio Amato (id=44)
+                <div style="color:blue">   
+                    SELECT * 
+                    FROM `courses` 
+                    INNER JOIN course_teacher
+                    ON course_teacher.course_id = courses.id
+                    INNER JOIN teachers
+                    ON course_teacher.teacher_id = teachers.id
+                    WHERE teachers.name = 'Fulvio'
+                    AND teachers.surname = 'Amato';
+                </div>
+            </li>
+            <li>
+                Selezionare tutti gli studenti con i dati relativi al corso di laurea a cui sono iscritti e il relativo dipartimento, in ordine alfabetico per cognome e nome
+                <div style="color:blue">
+                    SELECT * 
+                    FROM `students`
+                    INNER JOIN `degrees`
+                    ON students.degree_id = degrees.id
+                    INNER JOIN `departments`
+                    ON degrees.department_id = departments.id
+                    ORDER BY students.surname, students.name;
+                </div>
+            </li>
+            <li>
+                Selezionare tutti i corsi di laurea con i relativi corsi e insegnanti
+                <div style="color:blue">
+                    SELECT * 
+                    FROM `degrees`
+                    INNER JOIN `courses`
+                    ON degrees.id = courses.degree_id
+                    INNER JOIN `course_teacher`
+                    ON course_teacher.course_id = courses.id
+                    INNER JOIN `teachers`
+                    ON course_teacher.teacher_id = teachers.id
+                    ORDER BY degrees.department_id;
+                </div>
+            </li>
+            <li>
+                Selezionare tutti i docenti che insegnano nel Dipartimento di Matematica (54)
+                <div style="color:blue">
+                    SELECT DISTINCT departments.name, teachers.name, teachers.surname
+                    FROM departments
+                    JOIN degrees
+                    ON  degrees.department_id = departments.id 
+                    JOIN courses
+                    ON degrees.id = courses.degree_id
+                    JOIN course_teacher
+                    ON course_teacher.course_id = courses.id  
+                    JOIN teachers
+                    ON course_teacher.teacher_id = teachers.id
+                    WHERE departments.name= 'Dipartimento di Matematica';
                 </div>
             </li>
         </ol>
